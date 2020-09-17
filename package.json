@@ -1,0 +1,20 @@
+{
+  "name": "my-red-finances",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "clsx": "^1.1.1",
+    "next": "9.5.3",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-hook-form": "^6.8.2",
+    "styled-components": "^5.2.0"
+  }
+}
