@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { Input, DatePicker } from "../src/components";
+import { Input, DatePicker, Select } from "../src/components";
 import { useForm, FormProvider } from "react-hook-form";
 import {
   Grid,
@@ -20,6 +20,10 @@ const paymentMethods = [
   { name: "Boleto" },
 ];
 const categories = [{ name: "Lazer" }, { name: "Mercado" }, { name: "Posto" }];
+
+const installmentsOptions = Array.from(Array(36).keys()).map((item) =>
+  String(item)
+);
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -64,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const defaultValues = {
-  desciption: "",
+  description: "",
   value: "",
   installments: "",
   paymentMethod: "",
@@ -118,48 +122,40 @@ const Form = ({ onSubmit, methods }) => {
         spacing={2}
       >
         <Grid item xs={12}>
+          <Input name="description" label="Descrição" />
+        </Grid>
+        <Grid item xs={6}>
           <Input name="value" label="Valor" />
         </Grid>
-        <Grid item xs={12}>
-          <Input name="installments" label="Parcelas" />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Autocomplete
-            id="combo-box-demo"
-            options={paymentMethods}
-            getOptionLabel={(option) => option.name}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                margin="dense"
-                fullwidth
-                label="Método de pagamento"
-                variant="outlined"
-              />
-            )}
+        <Grid item xs={6}>
+          <Select
+            name="installments"
+            label="Parcelas"
+            options={installmentsOptions}
+            // getOptionLabel={(option) => option.name}
           />
         </Grid>
-        <Grid item xs={12}>
-          <Autocomplete
-            id="combo-box-demo"
+
+        <Grid item xs={6}>
+          <Select
+            options={paymentMethods}
+            getOptionLabel={(option) => option.name}
+            label="Método de pagamento"
+            name="paymentMethod"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Select
             options={categories}
             getOptionLabel={(option) => option.name}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                margin="dense"
-                fullwidth
-                label="Categoria"
-                variant="outlined"
-              />
-            )}
+            label="Categoria"
+            name="category"
           />
         </Grid>
         <Grid item xs={12}>
           <DatePicker name="purchaseDate" label="Data da compra" />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={5}>
           <FormControlLabel
             control={
               <Switch
@@ -171,7 +167,7 @@ const Form = ({ onSubmit, methods }) => {
             label="Gasto fixo"
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={7}>
           <DatePicker
             name="dueDate"
             format={"dd"}

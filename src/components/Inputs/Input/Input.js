@@ -4,7 +4,6 @@ import { useFormContext } from "react-hook-form";
 
 const Input = (props) => {
   const { control } = useFormContext();
-  console.log(props);
   return (
     <Controller
       as={TextField}
@@ -12,6 +11,10 @@ const Input = (props) => {
       variant="outlined"
       margin="dense"
       fullWidth
+      onChange={(value) => {
+        setValue(name, value);
+        return { value: value };
+      }}
       {...props}
     />
   );
