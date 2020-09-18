@@ -4,6 +4,9 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../src/theme";
 import Head from "next/head";
 import { CssBaseline } from "@material-ui/core";
+import DateFnsUtils from "@date-io/date-fns";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import ptBRLocale from "date-fns/locale/pt-BR";
 
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
@@ -24,8 +27,10 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBRLocale}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </MuiPickersUtilsProvider>
       </ThemeProvider>
     </>
   );

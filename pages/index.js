@@ -1,10 +1,16 @@
 import React from "react";
 import Head from "next/head";
-import { Input } from "../src/components";
+import { Input, DatePicker } from "../src/components";
 import { useForm, FormProvider } from "react-hook-form";
-import { Grid, Button, Container, TextField } from "@material-ui/core";
+import {
+  Grid,
+  Button,
+  Container,
+  TextField,
+  FormControlLabel,
+  Switch,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import useAutocomplete from "@material-ui/lab/useAutocomplete";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const paymentMethods = [
@@ -95,7 +101,13 @@ export default function Home() {
 
 const Form = ({ onSubmit, methods }) => {
   const classes = useStyles();
-
+  const [state, setState] = React.useState({
+    checkedA: true,
+    checkedB: true,
+  });
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
   return (
     <form onSubmit={methods.handleSubmit(onSubmit)}>
       <Grid
@@ -145,13 +157,27 @@ const Form = ({ onSubmit, methods }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Input name="purchaseDate" label="Data da compra" />
+          <DatePicker name="purchaseDate" label="Data da compra" />
         </Grid>
         <Grid item xs={12}>
-          <Input name="fixed" label="Gasto fixo" />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={state.checkedA}
+                onChange={handleChange}
+                name="checkedA"
+              />
+            }
+            label="Gasto fixo"
+          />
         </Grid>
         <Grid item xs={12}>
-          <Input name="dueDate" label="Data de Pagamento" />
+          <DatePicker
+            name="dueDate"
+            format={"dd"}
+            views={["date"]}
+            label="Dia de Pagamento"
+          />
         </Grid>
         <Grid item xs={12}>
           <Button fullWidth color="primary" variant="contained" type="submit">
