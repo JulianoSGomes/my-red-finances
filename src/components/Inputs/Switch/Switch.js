@@ -9,8 +9,17 @@ const Switch = (props) => {
     <Controller
       name={name}
       control={control}
-      render={(prop) => (
-        <FormControlLabel control={<MuiSwitch {...prop} />} label={label} />
+      render={({ value, onChange }) => (
+        <FormControlLabel
+          label={label}
+          control={
+            <MuiSwitch
+              onChange={(e) => onChange(e.target.checked)}
+              checked={!!value}
+              color="primary"
+            />
+          }
+        />
       )}
     />
   );
